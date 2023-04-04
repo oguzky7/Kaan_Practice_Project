@@ -43,6 +43,7 @@ public static void closeBrowser(){
 }
 
     public static void sendText(WebElement element, String textToSend) {
+        //getWait().until(ExpectedConditions.visibilityOf(element));
         element.clear();
         element.sendKeys(textToSend);
     }
