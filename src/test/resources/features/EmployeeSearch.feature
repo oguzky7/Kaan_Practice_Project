@@ -8,13 +8,13 @@ Feature: US-321 Searching the employee
     And user clicks on EmployeeList option
 
 
-  @EmployeeSearch @Test5
+  @EmployeeSearch @Test5 @all
   Scenario: Search employee by id
     When user enters valid employee id
     And user clicks on search button
     Then user sees employee information is displayed
 
-  @EmployeeSearch @Test6
+  @EmployeeSearch @Test6 @all
   Scenario: Search employee by name
     When user enters valid employee name
     And user clicks on search button

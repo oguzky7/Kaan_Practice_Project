@@ -1,6 +1,6 @@
 Feature: Dashboard functionality
 
-  @Dashboard @Test4
+  @Dashboard @Test4 @all
   Scenario: Verify dashboard
 
     When user enters valid username and valid password

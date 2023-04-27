@@ -7,19 +7,19 @@ Feature: Add Employee
     When user clicks on PIM option
     And user clicks on Add Employee button
 
-  @AddEmployee @Test7
+  @AddEmployee @Test7 @all
   Scenario: Adding one employee
     And user enters firstname and lastname
     And user clicks on save button
     Then employee added successfully
 
-  @AddEmployee  @Test8
+  @AddEmployee  @Test8 @all
   Scenario: Adding one employee using feature file
     And user enters "zalam" and "alia"
     And user clicks on save button
     Then employee added successfully
 
-  @AddEmployee  @Test9
+  @AddEmployee  @Test9 @all
   Scenario Outline: Adding multiple employees using feature file
     And user enters "<firstName>" and "<lastName>" for adding multiple employees
     And user clicks on save button
@@ -32,7 +32,7 @@ Feature: Add Employee
     #This one is opening and closing the browser for every example.
     #not very efficient
 
-  @AddEmployee  @Test10
+  @AddEmployee  @Test10 @all
   Scenario: Adding multiple employees using data table
     When user adds multiple employees and verify they are added successfully
       | firstName | middleName | lastName   |
@@ -43,11 +43,11 @@ Feature: Add Employee
     #without closing the browser
 
 
-  @AddEmployee  @Test11
+  @AddEmployee  @Test11 @all
   Scenario: Adding multiple employees using excel file
     When user adds multiple employee from excel using "EmployeeData" and verify it
 
-  @AddEmployee  @Test12
+  @AddEmployee  @Test12 @all
   Scenario: Adding employee and verifying it is stored in database
     And user enters "Mansoor" and "Raufi"
     And user captures employee id

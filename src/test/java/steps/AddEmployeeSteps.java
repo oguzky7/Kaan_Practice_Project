@@ -79,6 +79,7 @@ public class AddEmployeeSteps extends CommonMethods {
             click(dashboard.addEmployeeOption);
 
         }
+        System.out.println(employeeNames);
     }
 
     @When("user adds multiple employee from excel using {string} and verify it")

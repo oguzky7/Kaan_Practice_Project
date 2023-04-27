@@ -1,8 +1,9 @@
 package steps;
 
-
-import io.cucumber.java.Before;
 import io.cucumber.java.After;
+//import org.testng.annotations.AfterMethod
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import utils.CommonMethods;
 
 public class Hooks extends CommonMethods {
@@ -13,7 +14,14 @@ public class Hooks extends CommonMethods {
     }
 
     @After
-    public void postCondition() throws InterruptedException {
+    public void postCondition(Scenario scenario) throws InterruptedException {
+        byte [] pic;
+       if(scenario.isFailed()){
+           pic = takeScreenshot("failed/" + scenario.getName());
+       }else{
+           pic = takeScreenshot("passed/" + scenario.getName());
+       }
+       scenario.attach(pic,"image/png",scenario.getName());
         //Thread.sleep(2000);
         closeBrowser();
 
