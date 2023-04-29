@@ -16,6 +16,14 @@ public class EmployeeListPage extends CommonMethods {
     @FindBy(id="searchBtn")
     public WebElement searchButton;
 
+    @FindBy(xpath = "//table[@id='resultTable']/tbody/tr[2]/td[2]")
+    public WebElement randomEmpSelect;
+
+    @FindBy(xpath = "//div[@id='sidebar']/ul/li[6]/a")
+    public WebElement jobTab;
+
+
+
     public EmployeeListPage(){
         PageFactory.initElements(driver,this);
     }

@@ -3,10 +3,8 @@ package utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,6 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CommonMethods extends PageInitializer {
@@ -101,6 +102,99 @@ public static void closeBrowser(){
         }
         return picBytes;
     }
+    public static void explicitWait(WebElement element) {
+        getWait().until(ExpectedConditions.visibilityOf(element));
+    }
+    private static WebElement exceptionWrapper(WebElement element) {
+		/*
+		inner common method - implementation to perform try catch if element is NOT present
+		to get proper output on console or log.
+		 */
+        try {
+            explicitWait(element);
+        } catch (TimeoutException | NoSuchElementException ex) {
+            throw new NoSuchElementException("NO SUCH ELEMENT ON WEBPAGE"
+			/* here u can try to implement Log.fail or warning
+					and following MSG"NO SUCH ELEMENT ON WEBPAGE");
+					 */);
+        }
+        return element;
+    }
+    public static void assertThatElementIsDisplayed(WebElement element) {
+		/*
+		method check is element is displayed on a page (if yes -> true)
+		 */
+        Assert.assertTrue(exceptionWrapper(element).isDisplayed());
+    }
+    private static Select getSelect(WebElement element) {
+        return new Select(element);
+    }
+    public static void dropDownSelectByVisibleText(WebElement element, String text) {
+		/**
+		- FIRST argument -  webelement /SELECT/DROPDOWN/...
+		- SECOND argument - target-key (String) that will be selected from the list
+		 */
+        getSelect(element).selectByVisibleText(text);
+    }
 
+    public static void dropDownSelectByIndex(WebElement element, int option_NO) {
+		/**
+		- FIRST argument -  webelement /SELECT/DROPDOWN/...
+		- SECOND argument - target-key (int) that will be selected from the list
+		 */
+        getSelect(element).selectByIndex(option_NO);
+    }
+    public static void calendar(WebElement calenderLocator, WebElement monthElement, WebElement yearElement, String keyMonth,
+                                String keyYear, List<WebElement> listOfDate, String keyDate){
+        click(calenderLocator);
+        dropDownSelectByVisibleText(monthElement,ConfigReader.getPropertyValue(keyMonth));
+        dropDownSelectByVisibleText(yearElement,ConfigReader.getPropertyValue(keyYear));
+        for(WebElement dates:listOfDate){
+            String  date = dates.getText();
+            if(date.equalsIgnoreCase(ConfigReader.getPropertyValue(keyDate))){
+                click(dates);
+                break;
+            }
+
+        }
+    }
+    public static void assertThatElementText(WebElement element_WithActualText, String expectedText) {
+		/*
+		here method checks is text that webElement contains match to expected text
+		!!!! YOU DON'T NEED TO INPUT .getText() -> method do it implicitly, just provide WebElement
+		 */
+
+        Assert.assertEquals(expectedText,
+                exceptionWrapper(element_WithActualText).getText());
+    }
+    public static String StringMonthToInt (String shortForMonth){
+        //This method changes 3 digit Month shortcuts to numeric values but as a String again.
+        // That way we can convert it when we are writing only numeric dates
+        String result = "";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Jan", "01");
+        map.put("Feb", "02");
+        map.put("Mar", "03");
+        map.put("Apr", "04");
+        map.put("May", "05");
+        map.put("Jun", "06");
+        map.put("Jul", "07");
+        map.put("Aug", "08");
+        map.put("Sep", "09");
+        map.put("Oct", "10");
+        map.put("Nov", "11");
+        map.put("Dec", "12");
+
+        for (String month : map.keySet()) {
+            if (shortForMonth.equals(month)) {
+                result = map.get(month);
+                break;
+            }
+        }
+        return result;
+    }
+    public static void isElementEnable(WebElement element) {
+        Assert.assertTrue(exceptionWrapper(element).isEnabled());
+    }
 
 }

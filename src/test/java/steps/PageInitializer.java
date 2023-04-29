@@ -1,15 +1,13 @@
 package steps;
 
-import pages.AddEmployeePage;
-import pages.DashboardPage;
-import pages.EmployeeListPage;
-import pages.LoginPage;
+import pages.*;
 
 public class PageInitializer {
     public static LoginPage login;
     public static DashboardPage dashboard;
     public static AddEmployeePage addEmployee;
     public static EmployeeListPage employeeList;
+    public static employeeCurrentJobPage employeeCurrentJobPage;
 
 
     public static void initializePageObjects(){
@@ -17,6 +15,7 @@ public class PageInitializer {
         dashboard = new DashboardPage();
         addEmployee = new AddEmployeePage();
         employeeList = new EmployeeListPage();
+        employeeCurrentJobPage = new employeeCurrentJobPage();
 
     }
 }
