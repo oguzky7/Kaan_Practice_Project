@@ -39,7 +39,9 @@ Feature: API workflow test
     And the employee id "Employee.employee_id" is stored as global to be used for other request
 
 
-
+  @api @Test20
+  Scenario: Getting the createdd employee
+    When a GET call is made to get this employee
 
 
 

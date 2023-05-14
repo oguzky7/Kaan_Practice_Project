@@ -47,7 +47,7 @@ Feature: Add Employee
   Scenario: Adding multiple employees using excel file
     When user adds multiple employee from excel using "EmployeeData" and verify it
 
-  @AddEmployee  @Test12 @all
+  @AddEmployee  @Test12 @all @DB
   Scenario: Adding employee and verifying it is stored in database
     And user enters "Mansoor" and "Raufi"
     And user captures employee id
